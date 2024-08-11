@@ -1,0 +1,68 @@
+{
+  "endpoints": [
+    {
+      "endpoint": "/questionnaire/list",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/services/data/v61.0/query",
+          "method": "GET"
+        }
+      ],
+      "maps": {
+        "query_transform": "/etc/krakend/maps/salesforce/list/query.jpath",
+        "response_transform": "/etc/krakend/maps/salesforce/list/response.jpath"
+      }
+    },
+    {
+      "endpoint": "/text/random",
+      "method": "GET",
+      "input_query_strings": [
+        "id"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/services/data/v61.0/query",
+          "method": "GET"
+        }
+      ],
+      "maps": {
+        "query_transform": "/etc/krakend/maps/salesforce/text/random/query.jpath",
+        "response_transform": "/etc/krakend/maps/salesforce/text/random/response.jpath"
+      }
+    },
+    {
+      "endpoint": "/questionnaire/start",
+      "method": "GET",
+      "input_query_strings": [
+        "id"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/services/data/v61.0/query",
+          "method": "GET"
+        }
+      ],
+      "maps": {
+        "query_transform": "/etc/krakend/maps/salesforce/start/query.jpath",
+        "response_transform": "/etc/krakend/maps/salesforce/start/response.jpath"
+      }
+    },
+    {
+      "endpoint": "/questionnaire/submit",
+      "method": "POST",
+      "input_query_strings": [
+        "id"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/services/data/v61.0/sobjects/Pheno__c",
+          "method": "POST"
+        }
+      ],
+      "maps": {
+        "request_transform": "/etc/krakend/maps/salesforce/submit/request.jpath"
+      }
+    }
+  ]
+}

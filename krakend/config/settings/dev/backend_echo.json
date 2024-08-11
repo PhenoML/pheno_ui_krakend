@@ -1,0 +1,49 @@
+{
+  "endpoints": [
+    {
+      "endpoint": "/api/echo/get",
+      "method": "GET",
+      "output_encoding": "json",
+      "input_query_strings": [
+        "hello"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/echo/get",
+          "method": "GET",
+          "host": [
+            "http://host.docker.internal:3000"
+          ]
+        }
+      ],
+      "extra_config":{
+        "plugin/req-resp-modifier":{
+          "name": ["pheno_ui_maps_request", "pheno_ui_maps_response"],
+          "query_transform": "/etc/krakend/maps/echo/get/query.jpath",
+          "headers_transform": "/etc/krakend/maps/echo/get/headers.jpath",
+          "response_transform": "/etc/krakend/maps/echo/get/response.jpath"
+        }
+      }
+    },
+    {
+      "endpoint": "/api/echo/post",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/echo/post",
+          "method": "POST",
+          "host": [
+            "http://host.docker.internal:3000"
+          ]
+        }
+      ],
+      "extra_config":{
+        "plugin/req-resp-modifier":{
+          "name": ["pheno_ui_maps_request", "pheno_ui_maps_response"],
+          "request_transform": "/etc/krakend/maps/salesforce/submit/request.jpath"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+body | {
+  id: records[0].Pheno_Question_Set__c,
+  name: records[0].Pheno_Question_Set__r.Name,
+  title: records[0].Pheno_Question_Set__r.Name,
+  description: records[0].Pheno_Question_Set__r.Description,
+  questions: records[*].{
+    id: Pheno_Question__c,
+    icon: null,
+    question: Pheno_Question__r.Question__c,
+    description: null,
+    options: split(Pheno_Question__r.Picklist_Choices__c, '|')[*].{
+      value: @,
+      label: @
+    },
+    type: byKey(Pheno_Question__r.Question_Type__c, `{
+      "Text": "questionnaire_freetext",
+      "Picklist": "questionnaire_multiple_choice",
+      "Multi-Select Picklist": "questionnaire_checkboxes"
+    }`, 'questionnaire_freetext')
+  }
+}

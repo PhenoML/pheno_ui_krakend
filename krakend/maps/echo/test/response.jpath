@@ -1,0 +1,17 @@
+{
+  core: 'control string',
+  isoDateNow: isoDateNow(),
+  encodeJson: encodeJson(body.headers),
+  decodeJson: decodeJson('{"key":"value","array":[1,2,3],"nested":{"key":"value"}}'),
+  randomInt: randomInt(`1`, `10`),
+  byKeyNoDefault: byKey('yolo', `{ "yolo": 666, "loyo": 999 }`),
+  byKeyNoDefaultErr: byKey('dario', `{ "yolo": 666, "loyo": 999 }`),
+  byKeyDefault: byKey('loyo', `{ "yolo": 666, "loyo": 999 }`, `888`),
+  byKeyDefaultErr: byKey('dario', `{ "yolo": 666, "loyo": 999 }`, `777`),
+  split: split('hello,world', ','),
+  envDefault: env('ENV_VAR_TEST', 'not found'),
+  envDefaultErr: env('ENV_VAR_TEST_ERR', 'not found'),
+  envNoDefault: env('ENV_VAR_TEST'),
+  envNoDefaultErr: env('ENV_VAR_TEST_ERR'),
+  concat: concat('SELECT * FROM ', 'hello_world')
+}

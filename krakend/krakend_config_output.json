@@ -1,0 +1,159 @@
+{
+  "$schema": "https://www.krakend.io/schema/krakend.json",
+  "version": 3,
+  "extra_config": {
+    "router": {
+    }
+  },
+  "plugin": {
+    "pattern":".so",
+    "folder": "/etc/krakend/plugins/"
+  },
+  "name": "pheno_ui - API Gateway",
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "endpoints": [{"backend":[{"host":["http://host.docker.internal:3000"],"method":"GET","url_pattern":"/echo/get"}],"endpoint":"/api/echo/get","extra_config":{"plugin/req-resp-modifier":{"headers_transform":"/etc/krakend/maps/echo/get/headers.jpath","name":["pheno_ui_maps_request","pheno_ui_maps_response"],"query_transform":"/etc/krakend/maps/echo/get/query.jpath","response_transform":"/etc/krakend/maps/echo/get/response.jpath"}},"input_query_strings":["hello"],"method":"GET","output_encoding":"json"},{"backend":[{"host":["http://host.docker.internal:3000"],"method":"POST","url_pattern":"/echo/post"}],"endpoint":"/api/echo/post","extra_config":{"plugin/req-resp-modifier":{"name":["pheno_ui_maps_request","pheno_ui_maps_response"],"request_transform":"/etc/krakend/maps/salesforce/submit/request.jpath"}},"method":"POST","output_encoding":"json"},{
+  "endpoint": "/questionnaire/list",
+  "method": "GET",
+  "output_encoding": "json",
+  "input_query_strings": [],
+  "backend": [{
+      "url_pattern": "/services/data/v61.0/query",
+      "method": "GET",
+      "host": [
+        "https://rogersbh--phenoml.sandbox.my.salesforce.com"
+      ],
+      "extra_config": {
+        "auth/client-credentials": {
+          "client_id": "3MVG9gI0ielx8zHIUrI2zkFrqaSKgLl7nENTrSqQhmUELDd.nTmb9SjJfRoWwvV6tPXpfHjQ37HzILqA8t14J",
+          "client_secret": "98F83A156608D7EA38ED2F0AB1B177A5BE379EAF5D2C9B6FF7855FD58FD4F3E1",
+          "token_url": "https://rogersbh--phenoml.sandbox.my.salesforce.com/services/oauth2/token",
+          "endpoint_params": {
+            "grant_type": [
+              "client_credentials"
+            ]
+          }
+        },
+        "backend/http": {
+        }
+      }
+    }],
+  "extra_config": {
+    "plugin/req-resp-modifier": {
+      "name": [
+        "pheno_ui_maps_request",
+        "pheno_ui_maps_response"
+      ],
+      "query_transform": "/etc/krakend/maps/salesforce/list/query.jpath",
+      "response_transform": "/etc/krakend/maps/salesforce/list/response.jpath"}
+  }
+}
+,{
+  "endpoint": "/text/random",
+  "method": "GET",
+  "output_encoding": "json",
+  "input_query_strings": ["id"],
+  "backend": [{
+      "url_pattern": "/services/data/v61.0/query",
+      "method": "GET",
+      "host": [
+        "https://rogersbh--phenoml.sandbox.my.salesforce.com"
+      ],
+      "extra_config": {
+        "auth/client-credentials": {
+          "client_id": "3MVG9gI0ielx8zHIUrI2zkFrqaSKgLl7nENTrSqQhmUELDd.nTmb9SjJfRoWwvV6tPXpfHjQ37HzILqA8t14J",
+          "client_secret": "98F83A156608D7EA38ED2F0AB1B177A5BE379EAF5D2C9B6FF7855FD58FD4F3E1",
+          "token_url": "https://rogersbh--phenoml.sandbox.my.salesforce.com/services/oauth2/token",
+          "endpoint_params": {
+            "grant_type": [
+              "client_credentials"
+            ]
+          }
+        },
+        "backend/http": {
+        }
+      }
+    }],
+  "extra_config": {
+    "plugin/req-resp-modifier": {
+      "name": [
+        "pheno_ui_maps_request",
+        "pheno_ui_maps_response"
+      ],
+      "query_transform": "/etc/krakend/maps/salesforce/text/random/query.jpath",
+      "response_transform": "/etc/krakend/maps/salesforce/text/random/response.jpath"}
+  }
+}
+,{
+  "endpoint": "/questionnaire/start",
+  "method": "GET",
+  "output_encoding": "json",
+  "input_query_strings": ["id"],
+  "backend": [{
+      "url_pattern": "/services/data/v61.0/query",
+      "method": "GET",
+      "host": [
+        "https://rogersbh--phenoml.sandbox.my.salesforce.com"
+      ],
+      "extra_config": {
+        "auth/client-credentials": {
+          "client_id": "3MVG9gI0ielx8zHIUrI2zkFrqaSKgLl7nENTrSqQhmUELDd.nTmb9SjJfRoWwvV6tPXpfHjQ37HzILqA8t14J",
+          "client_secret": "98F83A156608D7EA38ED2F0AB1B177A5BE379EAF5D2C9B6FF7855FD58FD4F3E1",
+          "token_url": "https://rogersbh--phenoml.sandbox.my.salesforce.com/services/oauth2/token",
+          "endpoint_params": {
+            "grant_type": [
+              "client_credentials"
+            ]
+          }
+        },
+        "backend/http": {
+        }
+      }
+    }],
+  "extra_config": {
+    "plugin/req-resp-modifier": {
+      "name": [
+        "pheno_ui_maps_request",
+        "pheno_ui_maps_response"
+      ],
+      "query_transform": "/etc/krakend/maps/salesforce/start/query.jpath",
+      "response_transform": "/etc/krakend/maps/salesforce/start/response.jpath"}
+  }
+}
+,{
+  "endpoint": "/questionnaire/submit",
+  "method": "POST",
+  "output_encoding": "json",
+  "input_query_strings": ["id"],
+  "backend": [{
+      "url_pattern": "/services/data/v61.0/sobjects/Pheno__c",
+      "method": "POST",
+      "host": [
+        "https://rogersbh--phenoml.sandbox.my.salesforce.com"
+      ],
+      "extra_config": {
+        "auth/client-credentials": {
+          "client_id": "3MVG9gI0ielx8zHIUrI2zkFrqaSKgLl7nENTrSqQhmUELDd.nTmb9SjJfRoWwvV6tPXpfHjQ37HzILqA8t14J",
+          "client_secret": "98F83A156608D7EA38ED2F0AB1B177A5BE379EAF5D2C9B6FF7855FD58FD4F3E1",
+          "token_url": "https://rogersbh--phenoml.sandbox.my.salesforce.com/services/oauth2/token",
+          "endpoint_params": {
+            "grant_type": [
+              "client_credentials"
+            ]
+          }
+        },
+        "backend/http": {
+        }
+      }
+    }],
+  "extra_config": {
+    "plugin/req-resp-modifier": {
+      "name": [
+        "pheno_ui_maps_request",
+        "pheno_ui_maps_response"
+      ],
+      "request_transform": "/etc/krakend/maps/salesforce/submit/request.jpath"}
+  }
+}
+]
+}

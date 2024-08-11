@@ -1,0 +1,52 @@
+{
+  "endpoint": "{{- .endpoint -}}",
+  "method": "{{- .method -}}",
+  "output_encoding": "json",
+  "input_query_strings": [
+    {{- range $i, $value := .input_query_strings -}}
+    {{- if $i -}}{{- "," -}}{{- end -}}
+    "{{- $value -}}"
+    {{- end -}}
+  ],
+  "backend": [
+    {{- range $i, $backend := .backend -}}
+    {{- if $i -}}{{- "," -}}{{- end -}}
+    {
+      "url_pattern": "{{- .url_pattern -}}",
+      "method": "{{- or .method "GET" -}}",
+      "host": [
+        "https://rogersbh--phenoml.sandbox.my.salesforce.com"
+      ],
+      "extra_config": {
+        "auth/client-credentials": {
+          "client_id": "{{- env "ROGERS_SALESFORCE_CLIENT_ID" -}}",
+          "client_secret": "{{- env "ROGERS_SALESFORCE_CLIENT_SECRET" -}}",
+          "token_url": "https://rogersbh--phenoml.sandbox.my.salesforce.com/services/oauth2/token",
+          "endpoint_params": {
+            "grant_type": [
+              "client_credentials"
+            ]
+          }
+        },
+        "backend/http": {
+{{- /*        uncomment the next line for eaier debugging (forwards error codes to the client) */ -}}
+{{- /*        consider also uncommenting the line to forward the error message in krakend.tmpl */ -}}
+{{/*          "return_error_code": true*/}}
+        }
+      }
+    }
+    {{- end -}}
+  ],
+  "extra_config": {
+    "plugin/req-resp-modifier": {
+      "name": [
+        "pheno_ui_maps_request",
+        "pheno_ui_maps_response"
+      ]
+      {{- range $key, $value := .maps -}}
+      ,
+      "{{- $key -}}": "{{- $value -}}"
+      {{- end -}}
+    }
+  }
+}

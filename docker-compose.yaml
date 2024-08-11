@@ -1,0 +1,11 @@
+services:
+  api_gateway:
+    image: devopsfaith/krakend:watch
+    volumes:
+      - ./krakend:/etc/krakend
+    ports:
+      - "8080:8080"
+    command: [ "run", "-dc", "config/krakend.tmpl" ]
+    env_file:
+      - krakend/krakend.env
+      - krakend/secrets.env

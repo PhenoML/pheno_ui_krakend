@@ -1,0 +1,29 @@
+{
+  "$schema": "https://www.krakend.io/schema/krakend.json",
+  "version": 3,
+  "extra_config": {
+    "router": {
+{{- /*    uncomment the next line for eaier debugging (forwards error messages to the client) */ -}}
+{{- /*    consider also uncommenting the line to forward the error codes in */ -}}
+{{- /*    backend_rogers_salesforce.tmpl*/ -}}
+{{/*      "return_error_msg": true*/}}
+    }
+  },
+  "plugin": {
+    "pattern":".so",
+    "folder": "/etc/krakend/plugins/"
+  },
+  "name": "pheno_ui - API Gateway",
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "endpoints": [
+      {{- range $i, $endpoint := .backend_echo.endpoints -}}
+        {{- if $i -}}{{- "," -}}{{- end -}}
+        {{- marshal $endpoint -}}
+      {{- end -}}
+      {{- range $i, $endpoint := .backend_rogers_salesforce.endpoints -}}
+        {{- "," -}}
+        {{- template "backend_rogers_salesforce.tmpl" $endpoint -}}
+      {{- end -}}
+  ]
+}

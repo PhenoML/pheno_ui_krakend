@@ -1,0 +1,5 @@
+{
+  yo: 'soy',
+  arr: ['a', 'b', 'c'],
+  originalHello: query.hello
+}

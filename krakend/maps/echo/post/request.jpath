@@ -1,0 +1,4 @@
+{
+  yolo: 'swag',
+  userPass: concat(body.username, ':', body.password)
+}

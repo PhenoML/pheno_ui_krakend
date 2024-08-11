@@ -1,0 +1,3 @@
+{
+  q: concat('SELECT Pheno_Question_Set__c, Pheno_Question_Set__r.Name, Pheno_Question_Set__r.Description__c, Pheno_Question__c, Pheno_Question__r.Question__c, Pheno_Question__r.Question_Type__c, Pheno_Question__r.Picklist_Choices__c FROM Pheno_Question_Junction__c WHERE Pheno_Question_Set__c=\'', query.id[0], '\' LIMIT 200')
+}

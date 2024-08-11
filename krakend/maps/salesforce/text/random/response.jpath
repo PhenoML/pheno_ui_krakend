@@ -1,0 +1,3 @@
+{
+  text: body.records[0].Affirmation__c
+}

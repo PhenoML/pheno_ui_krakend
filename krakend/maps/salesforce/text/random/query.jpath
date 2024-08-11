@@ -1,0 +1,3 @@
+{
+  q: concat('SELECT Affirmation__c FROM ', query.id[0], ' LIMIT 1 OFFSET ', randomInt(`0`, `10`))
+}
